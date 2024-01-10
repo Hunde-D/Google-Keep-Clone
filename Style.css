@@ -54,6 +54,7 @@ main {
     transition-duration: 0.218s;
     transition-property: background, border, opacity, box-shadow, transform;
     transition-timing-function: ease-in;
+
 }
 
 #form {
@@ -167,6 +168,7 @@ input:focus {
     display: flex;
     align-items: center;
     flex-direction: column;
+
 }
 
 #form-buttons {
