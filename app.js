@@ -4,10 +4,12 @@ class App {
         this.notes =[];
         
         this.$form = document.querySelector('#form');
+        this.$note = document.querySelector('#notes');
+        this.$placeholder = document.querySelector('#placeholder');
         this.$noteTitle = document.querySelector('#note-title');
         this.$noteText = document.querySelector('#note-text');
         this.$formButtons = document.querySelector('#form-buttons');
-        
+
         this.addEventListeners();
     }
     addEventListeners() {
@@ -37,16 +39,16 @@ class App {
         }
     }
     openForm(){
-        console.log('form open works!');
         this.$form.classList.add('form-open');
         this.$noteTitle.style.display = 'block';
         this.$formButtons.style.display = 'block';
     }
     closeForm() {
-        console.log('form close works!');
         this.$form.classList.remove('form-open');
         this.$noteTitle.style.display = 'none';
         this.$formButtons.style.display = 'none';
+        this.$noteTitle.value = '';
+        this.$noteText.value = '';
     }
     addNote(note){
         const newNote ={
@@ -56,10 +58,26 @@ class App {
             id: this.notes.length > 0 ? this.notes[this.notes.length - 1].id + 1 : 1,
         };
         this.notes = [...this.notes, newNote];
-        console.log(this.notes);
-        
+        this.diplayNotes();
+        this.closeForm()
     }
-    
+    diplayNotes(){
+        const hasNotes = this.notes.length > 0;
+        this.$placeholder.style.display = hasNotes ? 'none' : 'flex';
+        this.$note.innerHTML = this.notes.map(note =>
+            `<div  style="background: ${note.color};" class="note">
+            <div class="${note.title && 'note-title'}">${note.title}</div>
+            <div class="note-text">${note.text}</div>
+            <div class="toolbar-container">
+                <div class="toolbar">
+                    <i class="bi bi-trash3 toolbar-delete"></i>
+                    <i class="bi bi-palette toolbar-color"></i>
+                </div>
+            </div>
+        </div>`).join("");
+    }
+                    // <img class="toolbar-color" src="https://icon.now.sh/palette">
+
 }
 
 new App();
